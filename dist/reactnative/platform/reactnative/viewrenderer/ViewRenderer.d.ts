@@ -12,6 +12,6 @@ export default class ViewRenderer extends BaseViewRenderer<any> {
     constructor(props: ViewRendererProps<any>);
     render(): JSX.Element;
     protected getRef(): object | null;
-    private _setRef(view);
-    private _onLayout(event);
+    private _setRef;
+    private _onLayout;
 }

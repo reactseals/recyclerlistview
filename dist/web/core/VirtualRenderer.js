@@ -148,9 +148,9 @@ var VirtualRenderer = /** @class */ (function () {
             if (this.onVisibleItemsChanged) {
                 this._viewabilityTracker.onVisibleRowsChanged = this._onVisibleItemsChanged;
             }
-            this._viewabilityTracker.setLayouts(this._layoutManager.getLayouts(), this._params.isHorizontal ?
-                this._layoutManager.getLayoutDimension().width :
-                this._layoutManager.getLayoutDimension().height);
+            this._viewabilityTracker.setLayouts(this._layoutManager.getLayouts(), this._params.isHorizontal
+                ? this._layoutManager.getLayoutDimension().width
+                : this._layoutManager.getLayoutDimension().height);
             this._viewabilityTracker.setDimensions({
                 height: this._dimensions.height,
                 width: this._dimensions.width,

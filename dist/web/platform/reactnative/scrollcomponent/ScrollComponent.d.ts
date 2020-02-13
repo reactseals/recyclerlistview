@@ -9,7 +9,7 @@ export default class ScrollComponent extends BaseScrollComponent {
     static defaultProps: {
         contentHeight: number;
         contentWidth: number;
-        externalScrollView: {};
+        externalScrollView: unknown;
         isHorizontal: boolean;
         scrollThrottle: number;
     };
@@ -21,6 +21,6 @@ export default class ScrollComponent extends BaseScrollComponent {
     constructor(args: ScrollComponentProps);
     scrollTo(x: number, y: number, isAnimated: boolean): void;
     render(): JSX.Element;
-    private _onScroll(event?);
-    private _onLayout(event);
+    private _onScroll;
+    private _onLayout;
 }
