@@ -1,11 +1,4 @@
 "use strict";
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var BinarySearch_1 = require("../utils/BinarySearch");
 var ViewabilityTracker = /** @class */ (function () {
@@ -236,7 +229,7 @@ var ViewabilityTracker = /** @class */ (function () {
             var now = this._calculateArrayDiff(newItems, oldItems);
             var notNow = this._calculateArrayDiff(oldItems, newItems);
             if (now.length > 0 || notNow.length > 0) {
-                func(__spreadArrays(newItems), now, notNow);
+                func(newItems.slice(), now, notNow);
             }
         }
     };

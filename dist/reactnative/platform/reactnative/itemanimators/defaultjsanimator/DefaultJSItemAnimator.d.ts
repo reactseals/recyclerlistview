@@ -15,5 +15,5 @@ export declare class DefaultJSItemAnimator implements BaseItemAnimator {
     animateWillUpdate(fromX: number, fromY: number, toX: number, toY: number, itemRef: object, itemIndex: number): void;
     animateShift(fromX: number, fromY: number, toX: number, toY: number, itemRef: object, itemIndex: number): boolean;
     animateWillUnmount(atX: number, atY: number, itemRef: object, itemIndex: number): void;
-    private _getNativePropObject;
+    private _getNativePropObject(x, y);
 }

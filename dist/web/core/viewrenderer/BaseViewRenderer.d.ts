@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import * as React from "react";
 import LayoutProvider, { Dimension } from "../dependencies/LayoutProvider";
 import ItemAnimator from "../ItemAnimator";

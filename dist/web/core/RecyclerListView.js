@@ -1,27 +1,21 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /***
@@ -53,8 +47,7 @@ var DataProvider_1 = require("./dependencies/DataProvider");
 var LayoutProvider_1 = require("./dependencies/LayoutProvider");
 var CustomError_1 = require("./exceptions/CustomError");
 var RecyclerListViewExceptions_1 = require("./exceptions/RecyclerListViewExceptions");
-// import LayoutManager, { Point, Rect } from "./layoutmanager/LayoutManager";
-var MasonaryLayoutManager_1 = require("./layoutmanager/MasonaryLayoutManager");
+var LayoutManager_1 = require("./layoutmanager/LayoutManager");
 var Messages_1 = require("./messages/Messages");
 var VirtualRenderer_1 = require("./VirtualRenderer");
 var ItemAnimator_1 = require("./ItemAnimator");
@@ -89,7 +82,7 @@ var RecyclerListView = /** @class */ (function (_super) {
             initialRenderIndex: 0,
             isHorizontal: false,
             itemCount: 0,
-            renderAheadOffset: 250
+            renderAheadOffset: 250,
         };
         _this._layout = { height: 0, width: 0 };
         _this._pendingScrollToOffset = null;
@@ -107,7 +100,7 @@ var RecyclerListView = /** @class */ (function (_super) {
             _this._pendingScrollToOffset = offset;
         }, !props.disableRecycling);
         _this.state = {
-            renderStack: {}
+            renderStack: {},
         };
         return _this;
     }
@@ -136,7 +129,7 @@ var RecyclerListView = /** @class */ (function (_super) {
                 _this.scrollToOffset(offset_1.x, offset_1.y, false);
             }, 0);
         }
-        this._initComplete && this._processOnEndReached();
+        this._processOnEndReached();
         this._checkAndChangeLayouts(this.props);
     };
     RecyclerListView.prototype.componentWillUnmount = function () {
@@ -212,29 +205,19 @@ var RecyclerListView = /** @class */ (function (_super) {
     };
     RecyclerListView.prototype.findApproxFirstVisibleIndex = function () {
         var viewabilityTracker = this._virtualRenderer.getViewabilityTracker();
-        return viewabilityTracker
-            ? viewabilityTracker.findFirstLogicallyVisibleIndex()
-            : 0;
+        return viewabilityTracker ? viewabilityTracker.findFirstLogicallyVisibleIndex() : 0;
     };
     RecyclerListView.prototype.render = function () {
         var _this = this;
-        return (React.createElement(ScrollComponent_1.default, __assign({ ref: function (scrollComponent) {
-                return (_this._scrollComponent = scrollComponent);
-            } }, this.props, this.props.scrollViewProps, { onScroll: this._onScroll, onSizeChanged: this._onSizeChanged, contentHeight: this._initComplete
-                ? this._virtualRenderer.getLayoutDimension().height
-                : 0, contentWidth: this._initComplete
-                ? this._virtualRenderer.getLayoutDimension().width
-                : 0 }), this._generateRenderStack()));
+        return (React.createElement(ScrollComponent_1.default, __assign({ ref: function (scrollComponent) { return _this._scrollComponent = scrollComponent; } }, this.props, this.props.scrollViewProps, { onScroll: this._onScroll, onSizeChanged: this._onSizeChanged, contentHeight: this._initComplete ? this._virtualRenderer.getLayoutDimension().height : 0, contentWidth: this._initComplete ? this._virtualRenderer.getLayoutDimension().width : 0 }), this._generateRenderStack()));
     };
     RecyclerListView.prototype._checkAndChangeLayouts = function (newProps, forceFullRender) {
         this._params.isHorizontal = newProps.isHorizontal;
         this._params.itemCount = newProps.dataProvider.getSize();
         this._virtualRenderer.setParamsAndDimensions(this._params, this._layout);
-        if (forceFullRender ||
-            this.props.layoutProvider !== newProps.layoutProvider ||
-            this.props.isHorizontal !== newProps.isHorizontal) {
+        if (forceFullRender || this.props.layoutProvider !== newProps.layoutProvider || this.props.isHorizontal !== newProps.isHorizontal) {
             //TODO:Talha use old layout manager
-            this._virtualRenderer.setLayoutManager(new MasonaryLayoutManager_1.default(2, newProps.layoutProvider, this._layout, newProps.isHorizontal));
+            this._virtualRenderer.setLayoutManager(new LayoutManager_1.default(newProps.layoutProvider, this._layout, newProps.isHorizontal));
             this._virtualRenderer.refreshWithAnchor();
             this._refreshViewability();
         }
@@ -301,16 +284,14 @@ var RecyclerListView = /** @class */ (function (_super) {
             this._virtualRenderer.attachVisibleItemsListener(this.props.onVisibleIndexesChanged);
         }
         this._params = {
-            initialOffset: this.props.initialOffset
-                ? this.props.initialOffset
-                : this._initialOffset,
+            initialOffset: this.props.initialOffset ? this.props.initialOffset : this._initialOffset,
             initialRenderIndex: this.props.initialRenderIndex,
             isHorizontal: this.props.isHorizontal,
             itemCount: this.props.dataProvider.getSize(),
-            renderAheadOffset: this.props.renderAheadOffset
+            renderAheadOffset: this.props.renderAheadOffset,
         };
         this._virtualRenderer.setParamsAndDimensions(this._params, this._layout);
-        this._virtualRenderer.setLayoutManager(new MasonaryLayoutManager_1.default(2, this.props.layoutProvider, this._layout, this.props.isHorizontal, this._cachedLayouts));
+        this._virtualRenderer.setLayoutManager(new LayoutManager_1.default(this.props.layoutProvider, this._layout, this.props.isHorizontal, this._cachedLayouts));
         this._virtualRenderer.setLayoutProvider(this.props.layoutProvider);
         this._virtualRenderer.init();
         var offset = this._virtualRenderer.getInitialOffset();
@@ -368,8 +349,7 @@ var RecyclerListView = /** @class */ (function (_super) {
         this.props.layoutProvider.setLayoutForType(type, this._tempDim, index);
         //TODO:Talha calling private method, find an alternative and remove this
         layoutManager.setMaxBounds(this._tempDim);
-        if (itemRect.height !== this._tempDim.height ||
-            itemRect.width !== this._tempDim.width) {
+        if (itemRect.height !== this._tempDim.height || itemRect.width !== this._tempDim.width) {
             if (this._relayoutReqIndex === -1) {
                 this._relayoutReqIndex = index;
             }
@@ -397,15 +377,10 @@ var RecyclerListView = /** @class */ (function (_super) {
     RecyclerListView.prototype._processOnEndReached = function () {
         if (this.props.onEndReached && this._virtualRenderer) {
             var layout = this._virtualRenderer.getLayoutDimension();
-            var windowBound = this.props.isHorizontal
-                ? layout.width - this._layout.width
-                : layout.height - this._layout.height;
+            var windowBound = this.props.isHorizontal ? layout.width - this._layout.width : layout.height - this._layout.height;
             var viewabilityTracker = this._virtualRenderer.getViewabilityTracker();
-            var lastOffset = viewabilityTracker
-                ? viewabilityTracker.getLastOffset()
-                : 0;
-            if (windowBound - lastOffset <=
-                ts_object_utils_1.Default.value(this.props.onEndReachedThreshold, 0)) {
+            var lastOffset = viewabilityTracker ? viewabilityTracker.getLastOffset() : 0;
+            if (windowBound - lastOffset <= ts_object_utils_1.Default.value(this.props.onEndReachedThreshold, 0)) {
                 if (!this._onEndReachedCalled) {
                     this._onEndReachedCalled = true;
                     this.props.onEndReached();
@@ -423,7 +398,7 @@ var RecyclerListView = /** @class */ (function (_super) {
         initialRenderIndex: 0,
         isHorizontal: false,
         onEndReachedThreshold: 0,
-        renderAheadOffset: IS_WEB ? 1000 : 250
+        renderAheadOffset: IS_WEB ? 1000 : 250,
     };
     RecyclerListView.propTypes = {};
     return RecyclerListView;
@@ -488,6 +463,6 @@ RecyclerListView.propTypes = {
     //For TS use case, not necessary with JS use.
     //For all props that need to be proxied to inner/external scrollview. Put them in an object and they'll be spread
     //and passed down.
-    scrollViewProps: PropTypes.object
+    scrollViewProps: PropTypes.object,
 };
 //# sourceMappingURL=RecyclerListView.js.map

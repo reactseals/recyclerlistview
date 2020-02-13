@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import * as React from "react";
 import ContextProvider from "./dependencies/ContextProvider";
 import DataProvider from "./dependencies/DataProvider";
@@ -88,19 +89,19 @@ export default class RecyclerListView extends React.Component<RecyclerListViewPr
     getCurrentScrollOffset(): number;
     findApproxFirstVisibleIndex(): number;
     render(): JSX.Element;
-    private _checkAndChangeLayouts;
-    private _refreshViewability;
-    private _queueStateRefresh;
-    private _onSizeChanged;
-    private _renderStackWhenReady;
-    private _initTrackers;
-    private _assertDependencyPresence;
-    private _assertType;
-    private _dataHasChanged;
-    private _renderRowUsingMeta;
-    private _onViewContainerSizeChange;
-    private _checkExpectedDimensionDiscrepancy;
-    private _generateRenderStack;
-    private _onScroll;
-    private _processOnEndReached;
+    private _checkAndChangeLayouts(newProps, forceFullRender?);
+    private _refreshViewability();
+    private _queueStateRefresh();
+    private _onSizeChanged(layout);
+    private _renderStackWhenReady(stack);
+    private _initTrackers();
+    private _assertDependencyPresence(props);
+    private _assertType(type);
+    private _dataHasChanged(row1, row2);
+    private _renderRowUsingMeta(itemMeta);
+    private _onViewContainerSizeChange(dim, index);
+    private _checkExpectedDimensionDiscrepancy(itemRect, type, index);
+    private _generateRenderStack();
+    private _onScroll(offsetX, offsetY, rawEvent);
+    private _processOnEndReached();
 }

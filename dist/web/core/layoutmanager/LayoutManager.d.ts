@@ -19,10 +19,10 @@ export default class LayoutManager {
     overrideLayout(index: number, dim: Dimension): void;
     setMaxBounds(itemDim: Dimension): void;
     reLayoutFromIndex(startIndex: number, itemCount: number): void;
-    private _pointDimensionsToRect;
-    private _setFinalDimensions;
-    private _locateFirstNeighbourIndex;
-    private _checkBounds;
+    private _pointDimensionsToRect(itemRect);
+    private _setFinalDimensions(maxBound);
+    private _locateFirstNeighbourIndex(startIndex);
+    private _checkBounds(itemX, itemY, itemDim, isHorizontal);
 }
 export interface Rect extends Dimension, Point {
     isOverridden?: boolean;

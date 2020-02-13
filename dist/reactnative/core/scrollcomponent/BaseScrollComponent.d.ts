@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import * as React from "react";
 import { Dimension } from "../dependencies/LayoutProvider";
 import BaseScrollView, { ScrollEvent, ScrollViewDefaultProps } from "./BaseScrollView";

@@ -1,7 +1,3 @@
-/***
- * Recycle pool for maintaining recyclable items, supports segregation by type as well.
- * Availability check, add/remove etc are all O(1), uses two maps to achieve constant time operation
- */
 export default class RecycleItemPool {
     private _recyclableObjectMap;
     private _availabilitySet;
@@ -10,6 +6,6 @@ export default class RecycleItemPool {
     getRecycledObject(objectType: string | number): string | null;
     removeFromPool(object: number): boolean;
     clearAll(): void;
-    private _getRelevantSet;
-    private _stringify;
+    private _getRelevantSet(objectType);
+    private _stringify(objectType);
 }

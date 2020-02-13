@@ -14,7 +14,7 @@ export default class ViewRenderer extends BaseViewRenderer<any> {
     componentDidUpdate(): void;
     render(): JSX.Element;
     protected getRef(): object | null;
-    private _setRef;
-    private _getTransform;
-    private _checkSizeChange;
+    private _setRef(div);
+    private _getTransform();
+    private _checkSizeChange();
 }

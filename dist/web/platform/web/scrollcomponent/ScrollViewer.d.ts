@@ -9,7 +9,7 @@ export default class ScrollViewer extends BaseScrollView {
         canChangeSize: boolean;
         distanceFromWindow: number;
         horizontal: boolean;
-        style: any;
+        style: null;
         useWindowScroll: boolean;
     };
     private _mainDivRef;
@@ -26,16 +26,16 @@ export default class ScrollViewer extends BaseScrollView {
         animated: boolean;
     }): void;
     render(): JSX.Element;
-    private _setDivRef;
-    private _getRelevantOffset;
-    private _setRelevantOffset;
-    private _isScrollEnd;
-    private _trackScrollOccurence;
-    private _doAnimatedScroll;
-    private _startListeningToDivEvents;
-    private _startListeningToWindowEvents;
-    private _onWindowResize;
-    private _windowOnScroll;
-    private _onScroll;
-    private _easeInOut;
+    private _setDivRef(div);
+    private _getRelevantOffset();
+    private _setRelevantOffset(offset);
+    private _isScrollEnd();
+    private _trackScrollOccurence();
+    private _doAnimatedScroll(offset);
+    private _startListeningToDivEvents();
+    private _startListeningToWindowEvents();
+    private _onWindowResize();
+    private _windowOnScroll();
+    private _onScroll();
+    private _easeInOut(currentTime, start, change, duration);
 }
